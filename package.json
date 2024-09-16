@@ -1,12 +1,12 @@
 {
-  "name": "react-chrome-extension",
+  "name": "weather-chrome-extension",
   "version": "1.0.0",
-  "description": "react chrome extension template",
+  "description": "Weather chrome extension",
   "scripts": {
     "start": "webpack --watch --progress --config webpack.dev.js",
     "build": "webpack --progress --config webpack.prod.js"
   },
-  "author": "",
+  "author": "Parisa Darkhal",
   "devDependencies": {
     "@types/chrome": "^0.0.181",
     "@types/react": "^18.0.6",
