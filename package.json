@@ -8,6 +8,8 @@
   },
   "author": "Parisa Darkhal",
   "devDependencies": {
+    "@mui/material": "^6.1.0",
+    "@mui/styled-engine-sc": "^6.1.0",
     "@types/chrome": "^0.0.181",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
@@ -18,11 +20,17 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "style-loader": "^2.0.0",
+    "styled-components": "^6.1.13",
     "terser-webpack-plugin": "^5.1.1",
     "ts-loader": "^8.1.0",
     "typescript": "^4.2.4",
     "webpack": "^5.94.0",
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@fontsource/roboto": "^5.1.0"
   }
 }
