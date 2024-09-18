@@ -1,26 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './popup.css'
 import WeatherCard from './WheatherCard'
 import '@fontsource/roboto'
-import { Box, Paper, InputBase, IconButton, Grid } from '@mui/material'
+import { Box, Paper, InputBase, IconButton } from '@mui/material'
 import AddLocationIcon from '@mui/icons-material/AddLocation'
+import { setStoredCities, getStoredCities } from '../utils/storage'
 
 const App: React.FC<{}> = () => {
-  const [cities, setCities] = useState<string[]>([
-    'Isfahan',
-    'Atlanta',
-    'error',
-  ])
-
+  const [cities, setCities] = useState<string[]>([])
   const [cityInput, setCityInput] = useState<string>('')
-  console.log('cityInput :>> ', cityInput)
+
+  // Load stored cities when the component mounts
+  useEffect(() => {
+    getStoredCities().then((storedCities) => setCities(storedCities))
+  }, [])
+
+  // Function to update cities and save to storage
+  const updateCities = (newCities: string[]) => {
+    setCities(newCities)
+    setStoredCities(newCities) // Persist the cities in chrome storage
+  }
 
   const handleCityBtnClick = () => {
     if (cityInput === '') {
       return
     }
-    setCities([...cities, cityInput])
+    const updatedCities = [...cities, cityInput]
+    updateCities(updatedCities)
     setCityInput('')
   }
 
@@ -29,14 +36,15 @@ const App: React.FC<{}> = () => {
       if (cityInput === '') {
         return
       }
-      setCities([...cities, cityInput])
-      setCityInput('')
+      const updatedCities = [...cities, cityInput]
+      updateCities(updatedCities)
+      setCityInput('') // Clear the input
     }
   }
 
   const handleCityDeleteBtnClick = (index: number) => {
-    cities.splice(index, 1)
-    setCities([...cities])
+    const updatedCities = cities.filter((_, i) => i !== index) // Avoid mutating state directly
+    updateCities(updatedCities)
   }
 
   return (
