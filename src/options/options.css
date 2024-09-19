@@ -1,3 +1,10 @@
 body {
-  background-color: #1c1c1c;
+  background-image: url(../static/icon.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+
+  /* background-color: #edebeb; */
+  font-family: 'Roboto';
 }
+
+
