@@ -5,13 +5,9 @@ import './options.css'
 import {
   Card,
   CardContent,
-  CardActions,
   Button,
   Typography,
   Box,
-  Paper,
-  InputBase,
-  IconButton,
   Grid2,
   TextField,
 } from '@mui/material'

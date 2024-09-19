@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import './popup.css'
-import WeatherCard from './WheatherCard'
+import WeatherCard from '../components/WheatherCard'
 import '@fontsource/roboto'
 import { Box, Paper, InputBase, IconButton, Grid2 } from '@mui/material'
 import AddLocationIcon from '@mui/icons-material/AddLocation'
