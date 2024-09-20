@@ -18,7 +18,11 @@ const WeatherCardContainer: React.FC<{
         <CardContent>{children}</CardContent>
         <CardActions>
           {onDelete && (
-            <Button color="secondary" onClick={onDelete}>
+            <Button
+              color="secondary"
+              onClick={onDelete}
+              className="weatherCard-body"
+            >
               Delete
             </Button>
           )}
@@ -51,7 +55,8 @@ const WeatherCard: React.FC<{
   if (cardState == 'loading' || cardState == 'error') {
     return (
       <WeatherCardContainer onDelete={onDelete}>
-        <Typography variant="body1">
+        <Typography className="weatherCard-title">{city}</Typography>
+        <Typography className="weatherCard-body">
           {cardState == 'loading'
             ? 'Loading...'
             : 'Error: Could not retrive weather data for this city.'}
@@ -72,11 +77,11 @@ const WeatherCard: React.FC<{
 
   return (
     <WeatherCardContainer onDelete={onDelete}>
-      <Typography variant="h5">{weatherData.name}</Typography>
-      <Typography variant="body1">
+      <Typography className="weatherCard-title">{weatherData.name}</Typography>
+      <Typography className="weatherCard-body">
         Temperature: {Math.round(weatherData.main.temp)}
       </Typography>
-      <Typography variant="body1">
+      <Typography className="weatherCard-body">
         Feels like: {Math.round(weatherData.main.feels_like)}
       </Typography>
     </WeatherCardContainer>

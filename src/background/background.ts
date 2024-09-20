@@ -1,4 +1,8 @@
-import { setStoredCities, setStoredOptions } from '../utils/storage'
+import {
+  setStoredCities,
+  getStoredCities,
+  setStoredOptions,
+} from '../utils/storage'
 
 chrome.runtime.onInstalled.addListener(() => {
   setStoredCities([])
@@ -6,5 +10,17 @@ chrome.runtime.onInstalled.addListener(() => {
     tempScale: 'metric',
     homeCity: '',
     hasAutoOverlay: false,
+  })
+
+  chrome.contextMenus.create({
+    contexts: ['selection'],
+    title: 'Add city to weather extension',
+    id: 'weatherExtension',
+  })
+})
+
+chrome.contextMenus.onClicked.addListener((event) => {
+  getStoredCities().then((cities) => {
+    setStoredCities([...cities, event.selectionText])
   })
 })
