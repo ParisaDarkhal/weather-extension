@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Typography } from '@mui/material'
-import { Card, CardContent, Box, CardActions } from '@mui/material'
+import { Card, CardContent, Box, CardActions, Grid2 } from '@mui/material'
 import './WeatherCard.css'
 import {
+  getWeatherIconSrc,
   fetchOpenWeatherData,
   OpenWeatherData,
   OpenWeatherTempScale,
@@ -77,13 +78,27 @@ const WeatherCard: React.FC<{
 
   return (
     <WeatherCardContainer onDelete={onDelete}>
-      <Typography className="weatherCard-title">{weatherData.name}</Typography>
-      <Typography className="weatherCard-body">
-        Temperature: {Math.round(weatherData.main.temp)}
-      </Typography>
-      <Typography className="weatherCard-body">
-        Feels like: {Math.round(weatherData.main.feels_like)}
-      </Typography>
+      <Grid2 container justifyContent={'space-around'}>
+        <Grid2>
+          <Typography className="weatherCard-title">
+            {weatherData.name}
+          </Typography>
+          <Typography className="weatherCard-body">
+            Temperature: {Math.round(weatherData.main.temp)}
+          </Typography>
+          <Typography className="weatherCard-body">
+            Feels like: {Math.round(weatherData.main.feels_like)}
+          </Typography>
+        </Grid2>
+        <Grid2>
+          {weatherData.weather.length > 0 && (
+            <img src={getWeatherIconSrc(weatherData.weather[0].icon)} />
+          )}
+          <Typography className="weatherCard-condition">
+            {weatherData.weather[0].main}
+          </Typography>
+        </Grid2>
+      </Grid2>
     </WeatherCardContainer>
   )
 }

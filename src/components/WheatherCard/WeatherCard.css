@@ -5,3 +5,7 @@
 .weatherCard-title {
   font-size: 24px !important;
 }
+
+.weatherCard-condition {
+  text-align: center !important;
+}

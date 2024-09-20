@@ -2,8 +2,8 @@
   position: fixed;
   right: 5%;
   bottom: 5%;
-  max-width: 240px;
-  max-height: 240px;
+  max-width: 340px;
+  max-height: 340px;
   background-color: #edebeb !important;
   z-index: 1000;
 }
