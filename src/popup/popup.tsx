@@ -5,6 +5,7 @@ import WeatherCard from '../components/WheatherCard'
 import '@fontsource/roboto'
 import { Box, Paper, InputBase, IconButton, Grid2 } from '@mui/material'
 import AddLocationIcon from '@mui/icons-material/AddLocation'
+import PictureInPictureAltIcon from '@mui/icons-material/PictureInPictureAlt'
 import {
   setStoredCities,
   getStoredCities,
@@ -12,6 +13,7 @@ import {
   getStoredOption,
   localStorageOptions,
 } from '../utils/storage'
+import { Messages } from '../utils/messages'
 
 const App: React.FC<{}> = () => {
   const [cities, setCities] = useState<string[]>([])
@@ -69,6 +71,40 @@ const App: React.FC<{}> = () => {
     return null
   }
 
+  // const handleOverlayBtnClick = () => {
+  //   chrome.tabs.query(
+  //     {
+  //       active: true,
+  //     },
+  //     (tabs) => {
+  //       if (tabs.length > 0) {
+  //         chrome.tabs.sendMessage(tabs[0].id, Messages.TOGGLE_OVERLAY)
+  //       }
+  //     }
+  //   )
+  // }
+
+  const handleOverlayBtnClick = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs.length > 0 && tabs[0].id) {
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          Messages.TOGGLE_OVERLAY,
+          (response) => {
+            if (chrome.runtime.lastError) {
+              console.error("Message send failed:", chrome.runtime.lastError.message);
+            } else {
+              console.log("Message sent successfully:", response);
+            }
+          }
+        );
+      } else {
+        console.error("No active tab found.");
+      }
+    });
+  };
+  
+
   return (
     <Box mx="5px" my="16">
       <Grid2 container justifyContent={'space-evenly'}>
@@ -83,6 +119,15 @@ const App: React.FC<{}> = () => {
               />
               <IconButton onClick={handleCityBtnClick}>
                 <AddLocationIcon />
+              </IconButton>
+            </Box>
+          </Paper>
+        </Grid2>
+        <Grid2>
+          <Paper>
+            <Box py="5px">
+              <IconButton onClick={handleOverlayBtnClick}>
+                <PictureInPictureAltIcon />
               </IconButton>
             </Box>
           </Paper>

@@ -39,7 +39,6 @@ const App: React.FC<{}> = () => {
 
   const handleOverlayBtn = (hasAutoOverlay: boolean) => {
     setOptions({ ...options, hasAutoOverlay })
-    console.log('hasAutoOverlay :>> ', hasAutoOverlay)
   }
 
   const handleSaveBtnClick = () => {
