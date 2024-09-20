@@ -10,6 +10,7 @@ import {
   Box,
   Grid2,
   TextField,
+  Switch,
 } from '@mui/material'
 import SaveIcon from '@mui/icons-material/Save'
 import {
@@ -22,7 +23,7 @@ type FormState = 'ready' | 'saving'
 
 const App: React.FC<{}> = () => {
   const [options, setOptions] = useState<localStorageOptions | null>(null)
-  const [FormState, setFormState] = useState<FormState>('ready')
+  const [formState, setFormState] = useState<FormState>('ready')
 
   useEffect(() => {
     getStoredOption().then((options) => setOptions(options))
@@ -33,8 +34,12 @@ const App: React.FC<{}> = () => {
   }
 
   const handleHomeCityChange = (homeCity: string) => {
-    console.log('homeCity :>> ', homeCity)
     setOptions({ ...options, homeCity })
+  }
+
+  const handleOverlayBtn = (hasAutoOverlay: boolean) => {
+    setOptions({ ...options, hasAutoOverlay })
+    console.log('hasAutoOverlay :>> ', hasAutoOverlay)
   }
 
   const handleSaveBtnClick = () => {
@@ -61,7 +66,7 @@ const App: React.FC<{}> = () => {
     }
   }
 
-  const isFieldsDisabled = FormState === 'saving'
+  const isFieldsDisabled = formState === 'saving'
 
   return (
     <Box mx={'10%'} my={'10%'}>
@@ -83,13 +88,22 @@ const App: React.FC<{}> = () => {
               ></TextField>
             </Grid2>
             <Grid2>
+              <Typography variant="body1">Overlay On Page</Typography>
+              <Switch
+                color="primary"
+                checked={options.hasAutoOverlay}
+                onChange={(event, checked) => handleOverlayBtn(checked)}
+                disabled={isFieldsDisabled}
+              />
+            </Grid2>
+            <Grid2>
               <Button
                 variant="outlined"
                 endIcon={<SaveIcon />}
                 onClick={handleSaveBtnClick}
                 disabled={isFieldsDisabled}
               >
-                {FormState === 'ready' ? 'Save' : 'Saving...'}
+                {formState === 'ready' ? 'Save' : 'Saving...'}
               </Button>
             </Grid2>
           </Grid2>

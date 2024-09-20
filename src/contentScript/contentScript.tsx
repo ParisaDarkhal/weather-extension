@@ -3,31 +3,37 @@ import WeatherCard from '../components/WheatherCard'
 import { createRoot } from 'react-dom/client'
 import './contentScript.css'
 import { getStoredOption, localStorageOptions } from '../utils/storage'
-import {
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-  Typography,
-  Box,
-  Paper,
-  InputBase,
-  IconButton,
-  Grid2,
-  TextField,
-} from '@mui/material'
+import { Card } from '@mui/material'
 
 const App: React.FC<{}> = () => {
   const [options, setOptions] = useState<localStorageOptions | null>(null)
+  const [isActive, setIsActive] = useState<boolean>(false)
+
+  useEffect(() => {
+    getStoredOption().then((options) => {
+      setOptions(options)
+      setIsActive(options.hasAutoOverlay)
+    })
+  },[])
 
   if (!options) {
     return null
   }
 
   return (
-    <Card className="overlayCard">
-      <WeatherCard city="Toronto" tempScale="metric" />
-    </Card>
+    <>
+      {isActive && (
+        <Card className="overlayCard">
+          <WeatherCard
+            city={options.homeCity}
+            tempScale={options.tempScale}
+            onDelete={() => {
+              setIsActive(false)
+            }}
+          />
+        </Card>
+      )}
+    </>
   )
 }
 
